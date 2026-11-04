@@ -1,38 +1,127 @@
 # Deep Learning SGU 2026
 
-Kho lưu trữ này tổng hợp các bài tập, lab, notebook và dự án liên quan đến môn Deep Learning trong khóa học SGU năm 2026. Repo không chỉ tập trung vào một dự án duy nhất mà còn bao gồm nhiều bài thực hành và nhiệm vụ học tập khác nhau về mô hình học sâu, hồi quy, phân loại, xử lý dữ liệu và thử nghiệm mô hình.
+Kho lưu trữ học tập cho môn Deep Learning tại SGU năm 2026. Đây là tập hợp
+nhiều bài tập, notebook, dữ liệu, báo cáo và dự án độc lập; repository không
+có một ứng dụng chung hay quy trình build duy nhất.
 
-## Tổng quan
+## Nội dung chính
 
-Repo này chứa các nội dung chính sau:
+- **Bài tập và lab:** tài liệu DOCX/PDF, notebook PyTorch và bản HTML xuất từ
+  lab.
+- **Titanic:** dữ liệu CSV, các notebook phân loại và những file submission
+  đã lưu.
+- **Function approximation:** dự án PyTorch MLP có script sinh dữ liệu, huấn
+  luyện baseline và chạy các thí nghiệm A/B/C.
+- **House Price:** dữ liệu, notebook thí nghiệm, mô hình và kết quả trong
+  checkout nhóm.
+- **Papers:** tài liệu tham khảo PDF theo chủ đề.
+- **Archives:** các file ZIP gốc được giữ lại như bản chụp nộp bài; một số
+  thành phần trong ZIP trùng với bản đã giải nén.
 
-- Bài tập và lab về Deep Learning, bao gồm các chủ đề cơ bản như hồi quy, perceptron, đồ thị tính toán, mạng nơ-ron đơn giản.
-- Các bài thực hành về mô hình học máy và học sâu áp dụng cho dữ liệu thực tế.
-- Dự án Titanic: bài toán phân loại sống/chết trên tàu.
-- Dự án House Price: bài toán dự đoán giá nhà bằng mô hình machine learning và deep learning.
-- Các file báo cáo, notebook, tài liệu `.docx` và kết quả thực nghiệm phục vụ cho quá trình học tập và đánh giá.
+## Công nghệ
 
-Nói ngắn gọn, đây là repository cho nhiều bài tập và dự án thuộc lĩnh vực Deep Learning, chứ không chỉ tập trung vào một project riêng biệt.
+- Python và Jupyter Notebook.
+- PyTorch, NumPy, pandas, Matplotlib, scikit-learn; một số notebook dùng thêm
+  Weights & Biases (`wandb`) hoặc seaborn.
+- Dự án Function Approximation có danh sách phụ thuộc riêng; xem
+  [requirements.txt](<SGU26_DeepLearning_Group/BTL01_Function_Approximation/requirements.txt>).
 
-## Yêu cầu môi trường
+## Yêu cầu và cài đặt
 
-Để chạy các notebook và dự án trong repo, nên chuẩn bị môi trường Python như sau:
+Nên dùng Python 3 và môi trường ảo riêng cho từng dự án. Không có
+`requirements.txt` chung ở repository root vì các notebook có phụ thuộc khác
+nhau.
 
-```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# Linux/macOS
-# source .venv/bin/activate
+Với dự án Function Approximation (Python 3.10 trở lên):
 
-pip install jupyter pandas numpy matplotlib scikit-learn xgboost torch
+```powershell
+Set-Location .\SGU26_DeepLearning_Group\BTL01_Function_Approximation
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
-Ngoài ra, bạn có thể sử dụng Jupyter Notebook hoặc JupyterLab để mở và chạy các file `.ipynb`.
+Với các notebook Titanic/House Price, cài Jupyter và các thư viện được import
+bởi notebook cần chạy (thường gồm `numpy`, `pandas`, `matplotlib`,
+`scikit-learn`, `torch`; `wandb` và `seaborn` được một số notebook sử dụng).
+Không cần cài mọi thư viện cho mọi bài. Notebook Titanic phiên bản s1 hiện
+import `wandb`; cần cài thư viện này trước khi chạy toàn bộ notebook.
 
-## Ghi chú
+## Cách chạy
 
-- Repo này chủ yếu mang tính học tập và thực nghiệm.
-- Một số file có thể lớn như notebook, dữ liệu, model lưu trữ hoặc báo cáo `.docx` nên cần đủ dung lượng lưu trữ.
-- Vì là kho bài tập và dự án trong quá trình học, nội dung có thể được cập nhật hoặc bổ sung theo từng lab, assignment hoặc dự án mới.
-- Nên chạy các notebook trong môi trường ảo để tránh xung đột thư viện giữa các dự án.
+### Mở notebook
+
+Từ repository root:
+
+```powershell
+jupyter lab
+```
+
+- Notebook Titanic s1 trong `notebooks/` đọc dữ liệu từ `titanic/` và hỗ trợ
+  working directory là repository root hoặc `notebooks/`. File submission
+  được ghi vào `notebooks/`.
+- Notebook Titanic s2 được cấu hình theo Kaggle: đường dẫn dữ liệu mặc định là
+  `/kaggle/input/competitions/titanic`, còn submission mặc định ghi vào
+  `/kaggle/working`. Hãy điều chỉnh `params` trong notebook khi dùng môi trường
+  khác.
+- Notebook nằm trong `titanic/` dùng các CSV cùng thư mục; có thể mở/chạy từ
+  thư mục đó.
+
+### Function Approximation
+
+Chạy các lệnh sau từ thư mục
+`SGU26_DeepLearning_Group/BTL01_Function_Approximation/` với môi trường đã cài
+`requirements.txt`:
+
+```powershell
+python train.py
+python run_experiments_ab.py
+python run_experiments_c.py
+```
+
+`python generate_data.py` tạo lại CSV và hình trong `data/` và `figures/`;
+không chạy lệnh này nếu muốn giữ nguyên dữ liệu đã tạo. Các script thí nghiệm
+có thể chạy lâu và ghi kết quả vào `results/`.
+
+### House Price
+
+Hai notebook thí nghiệm nằm trong
+`SGU26_DeepLearning_Group/house_price/experiments/`. Kiểm tra cấu hình đường
+dẫn và thư viện của notebook trước khi chạy; thư mục này hiện chưa có hướng
+dẫn cài đặt hoặc manifest phụ thuộc riêng.
+
+## Kiểm thử và cấu hình
+
+Repository hiện không có bộ kiểm thử tự động hoặc lệnh build chung. Các notebook
+có thể phụ thuộc vào working directory, dữ liệu cục bộ hoặc môi trường Kaggle.
+Không bật W&B online nếu chưa cấu hình tài khoản và mục đích sử dụng; một số
+notebook đang đặt chế độ disabled.
+
+## Cấu trúc thư mục
+
+```text
+.
+├── coursework/
+│   ├── assignments/       # BT01–BT04
+│   └── labs/              # lab01, lab02
+├── notebooks/             # hai notebook Titanic ở cấp repository
+├── titanic/               # CSV, notebook và submission đã lưu
+├── papers/                # tài liệu tham khảo
+├── archives/              # các ZIP gốc
+└── SGU26_DeepLearning_Group/
+    ├── BTL01_Function_Approximation/
+    │   ├── data/ figures/ results/
+    │   └── script Python và tài liệu dự án
+    └── house_price/
+        ├── data/ experiments/
+        └── submissions/ reports/
+```
+
+## Ghi chú phát triển
+
+- `SGU26_DeepLearning_Group/` là một Git checkout độc lập được giữ nguyên tại
+  vị trí hiện tại; kiểm tra trạng thái Git riêng khi làm việc trong đó.
+- Các thư mục `.venv/`, dữ liệu, checkpoint, submission và kết quả thí nghiệm
+  là tài nguyên cục bộ hoặc đầu ra đã lưu; không xóa chúng như bước dọn dẹp.
+- ZIP trong `archives/` được giữ nguyên dù có tệp trùng với bản đã giải nén.
+- Các bài tập dùng tên file gốc để bảo toàn ngữ cảnh học tập và nộp bài.
