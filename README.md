@@ -116,12 +116,3 @@ notebook đang đặt chế độ disabled.
         ├── data/ experiments/
         └── submissions/ reports/
 ```
-
-## Ghi chú phát triển
-
-- `SGU26_DeepLearning_Group/` là một Git checkout độc lập được giữ nguyên tại
-  vị trí hiện tại; kiểm tra trạng thái Git riêng khi làm việc trong đó.
-- Các thư mục `.venv/`, dữ liệu, checkpoint, submission và kết quả thí nghiệm
-  là tài nguyên cục bộ hoặc đầu ra đã lưu; không xóa chúng như bước dọn dẹp.
-- ZIP trong `archives/` được giữ nguyên dù có tệp trùng với bản đã giải nén.
-- Các bài tập dùng tên file gốc để bảo toàn ngữ cảnh học tập và nộp bài.
